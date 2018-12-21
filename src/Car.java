@@ -15,6 +15,14 @@ public class Car {
 		engine.setWeight(5);
 	}
 
+	public Engine getEngine() {
+		return engine;
+	}
+
+	public void setEngine(Engine engine) {
+		this.engine = engine;
+	}
+
 	public float calculateMaxEngineSpeed() {
 		float speed = 0;
 		try {
@@ -98,9 +106,10 @@ public class Car {
 		while (currentTemperature != this.currentTemperature) {
 			this.currentTemperature = currentTemperature;
 			do {
+				person.getName();
 				this.currentTemperature = currentTemperature;
 
-			} while (currentTemperature != this.currentTemperature);
+			} while (engine.getEngineSpeed() != this.currentTemperature);
 		}
 	}
 

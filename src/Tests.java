@@ -41,6 +41,7 @@ public class Tests {
 	// uneste
 	protected void createAndAddEntity(Rectangle2D dataArea, Car plotState, String toolTip, String urlText) {
 		if (plotState != null && plotState.getPerson() != null) {
+			plotState.getPerson();
 			String e = plotState.getPerson().getName();
 			if (e != null) {
 				System.out.println(new Owner());
@@ -54,5 +55,16 @@ public class Tests {
 		} else if (c1.getPerson()!=null) {
 			testIfinif();
 		}
+	}
+	
+	//Border case, counterexample for using fdp 2 and don't merge blocks after initial detection
+	public void counterExample(Engine e) {
+		e.getEngineSpeed();
+		e.getMadeFromIron();
+		Car c = null;
+		c.getCurrentTemperature();
+		Owner p=c.getPerson();
+		p.getName();
+		c.getEngine();
 	}
 }
