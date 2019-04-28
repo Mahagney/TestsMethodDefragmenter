@@ -1,7 +1,10 @@
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map.Entry;
+import java.util.logging.Logger; 
+import java.util.logging.*; 
 
 public class Car {
 	private float currentTemperature;
@@ -13,7 +16,10 @@ public class Car {
 	private static float oilThreshold = 5.3f;
 	private static float waterMaxTemperature = 5.3f;
 	private static float waterFirstTemperatureLimit = 5.3f;
-
+	private final static Logger LOGGER =  
+            Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); 
+	private Date nextCheck;
+	
 	public Car() {
 		this.engine = new Engine(3, true);
 		engine.setWeight(5);
@@ -228,24 +234,30 @@ public class Car {
 	public void setPerson(Owner person) {
 		this.person = person;
 	}
+	public void resetCarCheckDate(){
+		
+	}
 
 	public boolean checkCar() {
 
-		if (getWaterLevel() > waterThreshold) {
-			return false;
-		}
-		
 		float waterTemperature = getWaterTemperature();
 		if (waterTemperature > waterMaxTemperature) {
 			return false;
 		}
-		
-		float temperature = engine.getTemperature();
+        LOGGER.log(Level.INFO, "Temperature checked!"); 
+
+		float currentEngineTemperature = engine.getTemperature();
 		float engineSpeed = engine.getEngineSpeed();
-		if(engine.getMaxTemperature()< temperature){
+		float maxSpeed = engine.getMaxSpeed();
+		if(engineSpeed>maxSpeed){
 			return false;
 		}
+		if(engine.getMaxTemperature()< currentEngineTemperature){
+			return false;
+		}
+        LOGGER.log(Level.INFO, "Engine checked"); 
 
+        resetCarCheckDate();
 		return true;
 	}
 
