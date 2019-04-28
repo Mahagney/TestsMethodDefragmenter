@@ -8,7 +8,11 @@ public class Car {
 	private float weight;
 	private Engine engine;
 	private Owner person;
-	public static int s=0;
+	public static int s = 0;
+	private static float waterThreshold = 5.3f;
+	private static float oilThreshold = 5.3f;
+	private static float waterMaxTemperature = 5.3f;
+	private static float waterFirstTemperatureLimit = 5.3f;
 
 	public Car() {
 		this.engine = new Engine(3, true);
@@ -17,6 +21,18 @@ public class Car {
 
 	public Engine getEngine() {
 		return engine;
+	}
+
+	public float getTirePresure() {
+		return 2.4f;
+	}
+
+	public float getWaterLevel() {
+		return 2.4f;
+	}
+
+	public float getWaterTemperature() {
+		return 2.4f;
 	}
 
 	public void setEngine(Engine engine) {
@@ -124,12 +140,12 @@ public class Car {
 	}
 
 	public static void main(String[] args) {
-		HashMap<Car,Integer> map=new HashMap<Car, Integer>();
-		Car c1=new Car();
-		map.put(c1, (Integer)3);
-		map.put(c1,5);
-		Iterator<Entry<Car, Integer>> i=map.entrySet().iterator();
-		while(i.hasNext()) {
+		HashMap<Car, Integer> map = new HashMap<Car, Integer>();
+		Car c1 = new Car();
+		map.put(c1, (Integer) 3);
+		map.put(c1, 5);
+		Iterator<Entry<Car, Integer>> i = map.entrySet().iterator();
+		while (i.hasNext()) {
 			System.out.println(i.next().getValue());
 		}
 		System.out.println(map.get(c1));
@@ -164,21 +180,21 @@ public class Car {
 			monthString = "";
 		}
 	}
-	
+
 	public void testSynchronized() {
 		System.out.println("");
-		synchronized(engine.getWaterPump()){
+		synchronized (engine.getWaterPump()) {
 			System.out.println("");
 			person.getName();
 		}
-		
+
 		System.out.println("");
-		synchronized(this){
+		synchronized (this) {
 			System.out.println("");
 			person.getName();
 		}
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -186,25 +202,25 @@ public class Car {
 		result = prime * result + Float.floatToIntBits(currentTemperature);
 		result = prime * result + Float.floatToIntBits(weight);
 		s++;
-		return result+s;
+		return result + s;
 	}
 
-
 	public void testEnhancedFor() {
-		int[] a= {1,2,3,4};
+		int[] a = { 1, 2, 3, 4 };
 		engine.getEngineSpeed();
-		for(int i: a) {
+		for (int i : a) {
 			engine.getEngineSpeed();
 			System.out.println(i);
 			person.getName();
 		}
 		System.out.println("");
-		for(int i: a) {
+		for (int i : a) {
 			engine.getEngineSpeed();
 			System.out.println(i);
 		}
 
 	}
+
 	public Owner getPerson() {
 		return person;
 	}
@@ -213,6 +229,24 @@ public class Car {
 		this.person = person;
 	}
 
+	public boolean checkCar() {
 
-	
+		if (getWaterLevel() > waterThreshold) {
+			return false;
+		}
+		
+		float waterTemperature = getWaterTemperature();
+		if (waterTemperature > waterMaxTemperature) {
+			return false;
+		}
+		
+		float temperature = engine.getTemperature();
+		float engineSpeed = engine.getEngineSpeed();
+		if(engine.getMaxTemperature()< temperature){
+			return false;
+		}
+
+		return true;
+	}
+
 }
