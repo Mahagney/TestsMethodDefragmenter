@@ -19,6 +19,7 @@ public class Car {
 	private final static Logger LOGGER =  
             Logger.getLogger(Logger.GLOBAL_LOGGER_NAME); 
 	private Date nextCheck;
+	private static final int defaultMaxTemperature=260;
 	
 	public Car() {
 		this.engine = new Engine(3, true);
@@ -48,18 +49,18 @@ public class Car {
 	public float calculateMaxEngineSpeed() {
 		float speed = 0;
 		try {
-			float engineTemp = engine.getMaxTemperature();
+			float engineTemp = engine.getMaxTemp();
 			float engineSize = engine.getSize();
 			boolean madeFromIron = engine.getMadeFromIron();
 			if (engine.getMadeFromIron()) {
 				person.getName();
-				engineTemp = engine.getMaxTemperature();
+				engineTemp = engine.getMaxTemp();
 				engineSize = engine.getSize();
 				madeFromIron = engine.getMadeFromIron();
 				float toAdd = engineTemp + engineSize / 2;
 				speed = toAdd + engine.getWeight();
 			} else {
-				engineTemp = engine.getMaxTemperature();
+				engineTemp = engine.getMaxTemp();
 				engineSize = engine.getSize();
 				madeFromIron = engine.getMadeFromIron();
 				float toSub = engineSize / 2;
@@ -105,7 +106,7 @@ public class Car {
 
 	// no envy
 	public void setCurrentTemperature(float currentTemperature) {
-		engine.getMaxTemperature();
+		engine.getMaxTemp();
 		engine.getSize();
 		engine.getMadeFromIron();
 		engine.getMadeFromIron();
@@ -119,7 +120,7 @@ public class Car {
 	}
 
 	public void whileTest(float currentTemperature) {
-		engine.getMaxTemperature();
+		engine.getMaxTemp();
 		engine.getSize();
 		engine.getMadeFromIron();
 		engine.getMadeFromIron();
@@ -136,7 +137,7 @@ public class Car {
 	}
 
 	public void whileNoBodyTest(float currentTemperature) {
-		engine.getMaxTemperature();
+		engine.getMaxTemp();
 		engine.getSize();
 		engine.getMadeFromIron();
 		engine.getMadeFromIron();
@@ -230,6 +231,10 @@ public class Car {
 	public Owner getPerson() {
 		return person;
 	}
+	
+	public float getWheelSize(){
+		return 5.3f;
+	}
 
 	public void setPerson(Owner person) {
 		this.person = person;
@@ -239,26 +244,40 @@ public class Car {
 	}
 
 	public boolean checkCar() {
-
 		float waterTemperature = getWaterTemperature();
 		if (waterTemperature > waterMaxTemperature) {
 			return false;
 		}
         LOGGER.log(Level.INFO, "Temperature checked!"); 
 
-		float currentEngineTemperature = engine.getTemperature();
+		float currentEngineTemperature = engine.getTemp();
 		float engineSpeed = engine.getEngineSpeed();
 		float maxSpeed = engine.getMaxSpeed();
 		if(engineSpeed>maxSpeed){
 			return false;
 		}
-		if(engine.getMaxTemperature()< currentEngineTemperature){
+		if(engine.getMaxTemp()< currentEngineTemperature){
 			return false;
 		}
         LOGGER.log(Level.INFO, "Engine checked"); 
 
         resetCarCheckDate();
 		return true;
+	}
+	
+	public float calculateNormalTemperature(){
+		float normalTemperature = defaultMaxTemperature;
+		
+		float engineMaxTemperature = engine.getMaxTemp();
+		float engineSpeed = engine.getEngineSpeed(); 
+
+		if(engine.getMadeFromIron()){
+			engineMaxTemperature += 10;
+		}
+		normalTemperature = engineMaxTemperature * 
+				engineSpeed/engine.getMaxSpeed();
+		
+		return normalTemperature;
 	}
 
 }

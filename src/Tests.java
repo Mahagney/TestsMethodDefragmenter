@@ -60,11 +60,19 @@ public class Tests {
 	//Border case, counterexample for using fdp 2 and don't merge blocks after initial detection
 	public void counterExample(Engine e) {
 		e.getEngineSpeed();
-		e.getMadeFromIron();
+		e.isMadeFromIron();
 		Car c = null;
 		c.getCurrentTemperature();
 		Owner p=c.getPerson();
 		p.getName();
 		c.getEngine();
+	}
+	
+	public void testif(Car c){
+		int a=4;
+		
+		if(a==3){
+			c.getEngine();
+		}
 	}
 }

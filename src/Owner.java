@@ -14,6 +14,9 @@ public class Owner {
 		 System.out.println("age="+currentYear);
 		return currentYear;
 	}
+	public int getAge(){
+		return 4;
+	}
 	
 	@SuppressWarnings("deprecation")
 	public int setAge(Date date) {

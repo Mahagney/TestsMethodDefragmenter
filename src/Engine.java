@@ -38,7 +38,7 @@ public class Engine {
 	public void setEngineSpeed(float engineSpeed) {
 		this.engineSpeed = engineSpeed;
 	}
-	public float getTemperature() {
+	public float getTemp() {
 		return currentTemperature;
 	}
 	public void setTemperature(float temperature) {
@@ -60,7 +60,7 @@ public class Engine {
 		System.out.println("out");
 		this.maxSpeed = maxSpeed;
 	}
-	public float getMaxTemperature() {
+	public float getMaxTemp() {
 		return maxTemperature;
 	}
 	public void setMaxTemperature(float maxTemperature) {
